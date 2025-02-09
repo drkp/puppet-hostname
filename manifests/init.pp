@@ -5,7 +5,7 @@ class hostname {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => "${::clientcert}\n",
+    content => "${trusted['certname']}\n",
     notify  => Exec['set-hostname'],
   }
 
@@ -16,7 +16,7 @@ class hostname {
 
   host { $::clientcert:
     ensure => present,
-    ip     => $::ipaddress,
+    ip     => $facts['networking']['ip'],
   }
 
 }
